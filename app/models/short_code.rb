@@ -16,11 +16,17 @@ class ShortCode
     end
 
     result
-  end  
+  end 
 
   def self.decode(string)
-  end 
-end 
+    number = 0
 
-# Base62.encode(1824)
-# Base62.decode("gw")
+    string.reverse.each_char.with_index do |char, index|
+      power = BASE**index
+      index = ALPHABET.index(char)
+      number += index * power
+    end 
+
+    number
+  end
+end
