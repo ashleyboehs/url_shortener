@@ -1,5 +1,9 @@
 class ViewsController < ApplicationController
-  before_action :set_link 
+  before_action :set_link
+
+  rescue_from ActiveRecord::RecordNotFound do
+    redirect_to root_path, alert: "Missing Link!"
+  end
 
   def show
     @link.views.create(ip: request.remote_ip, user_agent: request.user_agent)
