@@ -6,7 +6,6 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
@@ -15,14 +14,27 @@
 
   <body>
     <main class="prose mx-auto mt-28 px-5">
-      <% if alert %>
-        <%= tag.p alert, class:"bg-yellow-100 text-yellow-800 text-sm  fount-medium py-2 rounded" if alert %>
-        <%= tag.p notice, class:"bg-blue-100 text-blue-800 text-sm  fount-medium py-2 rounded" if notice %>
+      <%= tag.p alert, class: "bg-yellow-100 text-yellow-800 text-sm font-medium px-4 py-2 rounded" if alert %>
+      <%= tag.p notice, class: "bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded" if notice %>
 
-      <% end %>
+      <nav class="mb-8 flex items-center justify-between">
+        <h1 class="m-0"><%= link_to "URL Shortener", root_path, class: "font-extrabold no-underline" %></h1>
 
-  
+        <div class="flex items-center gap-2">
+          <% if user_signed_in? %>
+            <%= link_to "Profile", edit_user_registration_path %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "Sign Up", new_user_registration_path %>
+            <%= link_to "Login", new_user_session_path %>
+          <% end %>
+        </div>
+      </nav>
+
       <%= yield %>
     </main>
   </body>
-</html>
+</html>     
+
+  
+     
